@@ -6,7 +6,7 @@
 #define LIB_HS_NODE
 
 #include <unordered_set>
-#include <boost/heap/fibonacci_heap.hpp>
+// #include <boost/heap/fibonacci_heap.hpp>
 
 typedef uint64_t kmer_t;
 

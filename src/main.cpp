@@ -215,7 +215,7 @@ int main(int argc, char* argv[]) {
 
     {
     	// Test sparse KBF - best fit kmers
-	unordered_set<kmer_t> sparse_kmers;
+        unordered_set<kmer_t> sparse_kmers;
     	unordered_set<kmer_t> edge_kmers;
     	cerr << "#### SPARSE KBF - BEST FIT ####" << endl;
         auto start = std::chrono::system_clock::now();
@@ -232,9 +232,9 @@ int main(int argc, char* argv[]) {
     	queryKmers(query_kmers, read_kmers, kbfs, prefix+"_kbfs_bestfit.txt");
     }
 
-    {
+    /*{
         //sparse KBF - hitting set optimization problem
-	unordered_set<kmer_t> sparse_kmers;
+        unordered_set<kmer_t> sparse_kmers;
     	unordered_set<kmer_t> edge_kmers;
     	cerr << "#### RELAXED SPARSE KBF - HITTING SET ####" << endl;
         auto start = std::chrono::system_clock::now();
@@ -249,5 +249,5 @@ int main(int argc, char* argv[]) {
         elapsed_seconds = end-start;
         cerr << "Build and populate hitting set relaxed sparse KBF: " << elapsed_seconds.count() << " s" << endl;
     	queryKmers(query_kmers, read_kmers, kbfsr, prefix+"_kbfs_relaxed_hittingset.txt");
-    }
+    }*/
 }

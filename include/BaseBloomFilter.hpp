@@ -5,8 +5,11 @@
 #ifndef LIB_BASE_BLOOM_FILTER
 #define LIB_BASE_BLOOM_FILTER
 
+#include <unordered_set>
+#include <iostream>
 #include <string>
-#include <bf.h>
+
+#include "bf.h"
 
 using namespace std;
 
@@ -23,14 +26,33 @@ protected:
 
 public:
 
-	BaseBloomFilter(const int k, const size_t num_elems=1024*1024*32, const size_t size_factor=10,const int num_hashes = 2)
-	: bf_(bf::make_hasher(num_hashes), num_elems*size_factor), k(k), bf_size(num_elems*size_factor), h(num_hashes)
+	BaseBloomFilter(const int kmer_size, 
+					const size_t num_elems=1024*1024*32, 
+					const size_t size_factor=10,
+					const int num_hashes = 2) :
+					bf_(bf::make_hasher(num_hashes), 
+						num_elems*size_factor), 
+					bf_size(num_elems*size_factor), 
+					h(num_hashes),
+					k(kmer_size)
 	{};
 
 	virtual ~BaseBloomFilter(){ //print out stats in destructor
 		cerr << "# kmers inserted: " << num_inserted << endl;
 		cerr << "BF size: " << bf_size << endl;
 		cerr << "# hashes: " << h << endl;
+	}
+
+	size_t get_bit_count() const {
+		return bf_size;
+	}
+
+	int get_hash_count() const {
+		return h;
+	}
+
+	size_t get_inserted_count() const {
+		return num_inserted;
 	}
 
 	void add(const kmer_t & kmer) {

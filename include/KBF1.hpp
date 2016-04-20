@@ -5,9 +5,15 @@
 #ifndef LIB_KBF_1
 #define LIB_KBF_1
 
-#include <bf.h>
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "bf.h"
 #include "BaseBloomFilter.hpp"
 #include "KBFUtil.hpp"
+
+using namespace std;
 
 
 class KBF1 : public BaseBloomFilter {

@@ -17,6 +17,8 @@ private:
   size_t sparse_check = 0; // not found in bf - check both sides
   size_t edge_check = 0; // checks of the edge set
   size_t edge_pass = 0; // edge checks that pass
+  // kmer size
+  uint8_t k;
 
   // constructor actions
   void constructKBF(unordered_set<kmer_t> & kmer_set, unordered_set<kmer_t> & edge_set){
@@ -31,12 +33,29 @@ private:
 
 public:
 
-  KBFSparseRelaxed(const int k, unordered_set<kmer_t> & kmer_set, unordered_set<kmer_t> & edge_set, const unsigned skip_len = 1, const size_t size_factor = 10) : BaseBloomFilter(k, kmer_set.size(), size_factor), skip_len(skip_len){
+  KBFSparseRelaxed( const int kmer_size, 
+                    unordered_set<kmer_t> & kmer_set, 
+                    unordered_set<kmer_t> & edge_set, 
+                    const unsigned skip_len = 1, 
+                    const size_t size_factor = 10) : 
+        BaseBloomFilter(kmer_size, 
+                        kmer_set.size(), 
+                        size_factor), 
+        skip_len(skip_len),
+        k(kmer_size) {
     constructKBF(kmer_set, edge_set);
   }
 
   //Constructor 2 - takes size explicitly
-  KBFSparseRelaxed(const size_t num_elems, const int k, unordered_set<kmer_t> & kmer_set, unordered_set<kmer_t> & edge_set, const unsigned skip_len = 1, const size_t size_factor = 10) : BaseBloomFilter(k,num_elems, size_factor), skip_len(skip_len){
+  KBFSparseRelaxed( const size_t num_elems, 
+                    const int kmer_size, 
+                    unordered_set<kmer_t> & kmer_set, 
+                    unordered_set<kmer_t> & edge_set, 
+                    const unsigned skip_len = 1, 
+                    const size_t size_factor = 10) : 
+                    BaseBloomFilter(k, num_elems, size_factor), 
+                    skip_len(skip_len),
+                    k(kmer_size) {
     constructKBF(kmer_set, edge_set);
   }
 
@@ -64,7 +83,7 @@ public:
       for(unsigned i = 0; i < skip_len; i++){
         sparse_check++;
         left |= skipAndSearchLeft(kmer, i+1, k, &bf_);
-        right |= skipAndSearchRight(kmer,skip_len-i,k,&bf_);
+        right |= skipAndSearchRight(kmer, skip_len - i, k, &bf_);
         if(left && right)
           return true;
       }
@@ -83,13 +102,13 @@ public:
       for(unsigned i = 0; i <= skip_len; i++){
         extended_check++;
         left |= skipAndSearchLeft(kmer, i+1, k, &bf_);
-        right |= skipAndSearchRight(kmer,i+1,k,&bf_);
+        right |= skipAndSearchRight(kmer,i+1, k, &bf_);
         if(left && right)
           return true;
       }
       if(left || right){
         edge_check++;
-        if(edge_kmers.find(kmer)!=edge_kmers.end()){
+        if(edge_kmers.find(kmer) != edge_kmers.end()){
           edge_pass++;
           return true;
         }

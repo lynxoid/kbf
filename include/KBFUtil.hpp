@@ -8,7 +8,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include "BaseBloomFilter.hpp"
-#include "HSNode.hpp"
+// #include "HSNode.hpp"
 #include "FastaReader.h"
 #include "JellyfishUtil.h"
 
@@ -271,13 +271,16 @@ void getBestFitKmersAndEdgeKmers(vector<string> & sequences, const int K, const 
   }
 }
 
+/*
 //for node comparison in heap
 struct node_compare {
   bool operator()(HSNode * node1, HSNode * node2) const{
     return node1->get_degree() < node2->get_degree();
   }
 };
+*/
 
+/*
 // greedy hitting set sparsification
 // create a node for each kmer with the kmer value, and pointers to the neighbour sets that it covers
 // greedily add the highest degree kmer to the sparse kmer set
@@ -365,5 +368,7 @@ void hittingSetKmersAndEdgeKmers(vector<string> & sequences, const int K, unorde
     delete max_node;
   }
 }
+
+*/
 
 #endif
