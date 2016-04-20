@@ -86,7 +86,7 @@ vector<kmer_t> sample_kmers(unordered_set<kmer_t> & kmer_set, int const set_size
             base = base_table[base_dis(gen)];
           }
           string_kmer[ind] = base;
-	  sample_kmer = mer_string_to_binary(string_kmer.c_str(),K);
+          sample_kmer = mer_string_to_binary(string_kmer.c_str(),K);
         }
         query_kmers.push_back(sample_kmer);
         i++;

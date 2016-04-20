@@ -26,11 +26,11 @@ private:
 
 public:
 
-  KBF1(const int k, const size_t num_elems = 1024 * 1024, const unsigned extend_len = 1)
-    : BaseBloomFilter(k, num_elems),
+  KBF1(const int k, const unsigned extend_len = 1)
+    : BaseBloomFilter(k),
       extend_len(extend_len) {}
 
-  //An alternative constructor that populates with kmer set
+  // An alternative constructor that populates with kmer set
   KBF1(const int k, const unordered_set<kmer_t> & kmer_set, const unsigned extend_len=1)
     : BaseBloomFilter(k, kmer_set.size()),
       extend_len(extend_len){
@@ -39,6 +39,10 @@ public:
 
   ~KBF1() {
     cerr << "Extended checks: " << extended_check  << endl;
+  }
+
+  size_t get_extended_check_count() const {
+    return extended_check;
   }
 
   bool contains(const kmer_t & A) {
