@@ -11,7 +11,7 @@ before_install:
     - export CXX="gcc-4.9"
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 50
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
-    - git clone https://github.com/mavam/libbf.git && cd libbf && ./configure && make && make test && make install
+    - git clone https://github.com/mavam/libbf.git && cd libbf && ./configure && make && make install
     
 script: 
     - cd kbf
