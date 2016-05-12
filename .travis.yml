@@ -1,7 +1,18 @@
-compiler: clang
 language: cpp
-os:
-- linux
-- osx
-after_success:
-- if [ $TRAVIS_BRANCH == $TRAVIS_TAG ]; then ./scripts/deploy.sh release github website triggers; fi
+
+compiler: gcc
+
+before_install:
+    - echo "yes" | sudo apt-add-repository ppa:boost-latest
+    - echo "yes" | sudo apt-add-repository ppa:h-rayflood/gcc-upper
+    - sudo apt-get clean -qq
+    - sudo apt-get update -qq
+    - git clone https://github.com/mavam/libbf.git && cd libbf && make && make test && make install
+    
+install:
+    - export CXX="g++-4.9"
+    - export CC="gcc-4.9"
+
+script: 
+    - make
+    - make test
