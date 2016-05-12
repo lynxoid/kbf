@@ -7,7 +7,7 @@ before_install:
     - echo "yes" | sudo apt-add-repository ppa:h-rayflood/gcc-upper
     - sudo apt-get clean -qq
     - sudo apt-get update -qq
-    - git clone https://github.com/mavam/libbf.git && cd libbf && make && make test && make install
+    - git clone https://github.com/mavam/libbf.git && cd libbf && ./configure && make && make test && make install
     
 install:
     - export CXX="g++-4.9"
